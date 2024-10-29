@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividend Scorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dividend Scorer</h1>
+        <div class="content-wrapper">
+            <div class="form-container">
+                <form id="dividend-form">
+                    <div class="form-group">
+                        <label for="payout-ratio">Payout Ratio:</label>
+                        <input type="number" id="payout-ratio" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="debt-levels">Debt Levels:</label>
+                        <input type="number" id="debt-levels" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recession-perform">Recession Performance:</label>
+                        <select id="recession-perform" required>
+                            <option value="Good">Good</option>
+                            <option value="Bad">Bad</option>
+                            <option value="N/A">N/A</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dividend-longevity">Dividend Longevity (1-20 years):</label>
+                        <input type="number" id="dividend-longevity" min="1" max="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="industry-cyclicality">Industry Cyclicality:</label>
+                        <select id="industry-cyclicality" required>
+                            <option value="Not Cyclical">Not Cyclical</option>
+                            <option value="Cyclical">Cyclical</option>
+                            <option value="Very Cyclical">Very Cyclical</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="free-cash-flow">Free Cash Flow:</label>
+                        <input type="number" id="free-cash-flow" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recent-growth">Recent Sales and Earnings Growth:</label>
+                        <input type="number" id="recent-growth" required>
+                    </div>
+                    <button type="submit">Calculate Score</button>
+                </form>
+                <div id="result" class="result"></div>
+                <div id="category" class="category"></div>
+            </div>
+            <div class="chart-container">
+                <h2>Safety Chart</h2>
+                <table class="safety-chart">
+                    <tr class="extremely-safe">
+                        <td>Extremely Safe</td>
+                        <td>78-100</td>
+                    </tr>
+                    <tr class="safe">
+                        <td>Safe</td>
+                        <td>60-77</td>
+                    </tr>
+                    <tr class="unsafe">
+                        <td>Unsafe</td>
+                        <td>36-59</td>
+                    </tr>
+                    <tr class="extremely-unsafe">
+                        <td>Extremely Unsafe</td>
+                        <td>1-35</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
