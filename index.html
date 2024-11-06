@@ -253,12 +253,81 @@
                     <tr class="extremely-unsafe">
                         <td>Extremely Unsafe</td>
                         <td>1-35</td>
-                   </tr>
+                    </tr>
                 </table>
             </div>
         </div>
     </div>
-    <script src="auth.js"></script>
-    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginOverlay = document.getElementById('login-overlay');
+            const signupOverlay = document.getElementById('signup-overlay');
+            const mainContent = document.getElementById('main-content');
+            const switchToSignup = document.getElementById('switch-to-signup');
+            const switchToLogin = document.getElementById('switch-to-login');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            mainContent.style.display = 'none';
+
+            switchToSignup.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginOverlay.classList.add('hidden');
+                signupOverlay.classList.remove('hidden');
+            });
+
+            switchToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                signupOverlay.classList.add('hidden');
+                loginOverlay.classList.remove('hidden');
+            });
+
+            document.getElementById('login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                loginOverlay.classList.add('hidden');
+                mainContent.style.display = 'block';
+            });
+
+            document.getElementById('signup-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Signup Successful');
+                signupOverlay.classList.add('hidden');
+                mainContent.style.display = 'block';
+            });
+
+            logoutBtn.addEventListener('click', () => {
+                mainContent.style.display = 'none';
+                loginOverlay.classList.remove('hidden');
+            });
+
+            document.getElementById('dividend-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const payoutRatio = parseFloat(document.getElementById('payout-ratio').value);
+                const debtLevels = parseFloat(document.getElementById('debt-levels').value);
+                const recessionPerformance = document.getElementById('recession-perform').value;
+                const dividendLongevity = parseInt(document.getElementById('dividend-longevity').value);
+                const industryCyclicality = document.getElementById('industry-cyclicality').value;
+                const freeCashFlow = parseFloat(document.getElementById('free-cash-flow').value);
+                const recentGrowth = parseFloat(document.getElementById('recent-growth').value);
+                
+                let score = payoutRatio + freeCashFlow + recentGrowth - debtLevels;
+                if (recessionPerformance === 'Good') score += 10;
+                if (recessionPerformance === 'Bad') score -= 10;
+                if (industryCyclicality === 'Cyclical') score -= 5;
+                if (industryCyclicality === 'Very Cyclical') score -= 10;
+                score += dividendLongevity;
+
+                document.getElementById('result').textContent = `Your Dividend Score: ${score}`;
+
+                let category;
+                if (score >= 78) category = 'Extremely Safe';
+                else if (score >= 60) category = 'Safe';
+                else if (score >= 36) category = 'Unsafe';
+                else category = 'Extremely Unsafe';
+
+                document.getElementById('category').textContent = `Category: ${category}`;
+            });
+        });
+    </script>
 </body>
 </html>
