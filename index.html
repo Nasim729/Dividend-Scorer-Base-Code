@@ -5,6 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dividend Scorer</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0fcf4; /* Mint green background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            background-color: #d4f3dc; /* Match header green tone */
+            color: #20232a;
+            padding: 10px 15px;
+            margin: 0;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #CCFAE6; /* Dim overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .auth-container {
+            background-color: #e8fce9; /* Slight green tint background */
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 320px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #2d3748;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b8e4c9;
+            border-radius: 5px;
+            background-color: #f4fcf6;
+        }
+
+        button[type="submit"] {
+            background-color: #38a169; /* Primary green */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2f855a;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        a {
+            color: #3b8e6c; /* Green for links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <!-- Login Overlay -->
@@ -14,11 +106,11 @@
             <form id="login-form">
                 <div class="form-group">
                     <label for="login-username">Username:</label>
-                    <input type="text" id="login-username" required>
+                    <input type="text" id="login-username" placeholder="Enter your username" required>
                 </div>
                 <div class="form-group">
                     <label for="login-password">Password:</label>
-                    <input type="password" id="login-password" required>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
                 </div>
                 <button type="submit">Login</button>
                 <p>Don't have an account? <a href="#" id="switch-to-signup">Sign up</a></p>
@@ -27,21 +119,21 @@
     </div>
 
     <!-- Signup Overlay -->
-    <div id="signup-overlay" class="auth-overlay">
+    <div id="signup-overlay" class="auth-overlay hidden">
         <div class="auth-container">
             <h2>Sign Up</h2>
             <form id="signup-form">
                 <div class="form-group">
                     <label for="signup-username">Username:</label>
-                    <input type="text" id="signup-username" required>
+                    <input type="text" id="signup-username" placeholder="Enter your username" required>
                 </div>
                 <div class="form-group">
                     <label for="signup-password">Password:</label>
-                    <input type="password" id="signup-password" required>
+                    <input type="password" id="signup-password" placeholder="Enter your password" required>
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" id="confirm-password" required>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password" required>
                 </div>
                 <button type="submit">Sign Up</button>
                 <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
@@ -50,79 +142,26 @@
     </div>
 
     <!-- Main Content -->
-    <div id="main-content" class="container">
+    <div id="main-content" class="container hidden">
         <div class="header">
             <h1>Dividend Scorer</h1>
             <button id="logout-btn" class="logout-btn">Logout</button>
         </div>
-        <div class="content-wrapper">
-            <div class="form-container">
-                <form id="dividend-form">
-                    <div class="form-group">
-                        <label for="payout-ratio">Payout Ratio:</label>
-                        <input type="number" id="payout-ratio" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="debt-levels">Debt Levels:</label>
-                        <input type="number" id="debt-levels" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="recession-perform">Recession Performance:</label>
-                        <select id="recession-perform" required>
-                            <option value="Good">Good</option>
-                            <option value="Bad">Bad</option>
-                            <option value="N/A">N/A</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="dividend-longevity">Dividend Longevity (1-20 years):</label>
-                        <input type="number" id="dividend-longevity" min="1" max="20" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="industry-cyclicality">Industry Cyclicality:</label>
-                        <select id="industry-cyclicality" required>
-                            <option value="Not Cyclical">Not Cyclical</option>
-                            <option value="Cyclical">Cyclical</option>
-                            <option value="Very Cyclical">Very Cyclical</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="free-cash-flow">Free Cash Flow:</label>
-                        <input type="number" id="free-cash-flow" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="recent-growth">Recent Sales and Earnings Growth:</label>
-                        <input type="number" id="recent-growth" required>
-                    </div>
-                    <button type="submit">Calculate Score</button>
-                </form>
-                <div id="result" class="result"></div>
-                <div id="category" class="category"></div>
-            </div>
-            <div class="chart-container">
-                <h2>Safety Chart</h2>
-                <table class="safety-chart">
-                    <tr class="extremely-safe">
-                        <td>Extremely Safe</td>
-                        <td>78-100</td>
-                    </tr>
-                    <tr class="safe">
-                        <td>Safe</td>
-                        <td>60-77</td>
-                    </tr>
-                    <tr class="unsafe">
-                        <td>Unsafe</td>
-                        <td>36-59</td>
-                    </tr>
-                    <tr class="extremely-unsafe">
-                        <td>Extremely Unsafe</td>
-                        <td>1-35</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <!-- Other main content -->
     </div>
-    <script src="auth.js"></script>
-    <script src="script.js"></script>
+
+    <script>
+        document.getElementById('switch-to-signup').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('login-overlay').classList.add('hidden');
+            document.getElementById('signup-overlay').classList.remove('hidden');
+        });
+
+        document.getElementById('switch-to-login').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('signup-overlay').classList.add('hidden');
+            document.getElementById('login-overlay').classList.remove('hidden');
+        });
+    </script>
 </body>
 </html>
