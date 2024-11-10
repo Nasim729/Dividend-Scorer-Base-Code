@@ -173,6 +173,348 @@
             <h1>Dividend Scorer</h1>
             <button id="logout-btn" class="logout-btn">Logout</button>
         </div>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dividend Scorer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Inter, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E5F9F2;
+            display: flex;
+        }
+        .container {
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: white;
+            padding: 10px; /* Reduced padding */
+            font-family: Inter, sans-serif;
+            height: 100%;
+        }
+        .sidebar h2 {
+            font-family: Vollkorn, serif;
+            margin-bottom: 10px; /* Reduced margin */
+            font-size: 1.2em; /* Slightly smaller font size */
+        }
+        .sidebar button {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px; /* Reduced margin */
+            padding: 8px 12px; /* Reduced padding */
+            gap: 8px;
+            background-color: white;
+            border: none; /* Removed border */
+            font-family: Inter, sans-serif;
+            border-radius: 5px; /* Added rounded corners */
+            cursor: pointer;
+            transition: background-color 0.2s ease; /* Added transition */
+        }
+        .sidebar button:hover {
+            background-color: #f5f5f5; /* Lighter hover color */
+        }
+        .sidebar button .icon {
+            width: 16px; /* Smaller icon size */
+            height: 16px;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            font-family: Inter, sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-family: Inter, sans-serif;
+        }
+        .header h1 {
+            font-family: Vollkorn, serif;
+        }
+        .search-bar {
+            padding: 5px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: Inter, sans-serif;
+        }
+        .stock-cards {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-family: Inter, sans-serif;
+        }
+        .stock-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px;
+            width: 22%;
+            font-family: Inter, sans-serif;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stock-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        .metric-cards {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-family: Inter, sans-serif;
+        }
+        .metric-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px;
+            width: 30%;
+            text-align: center;
+            font-family: Inter, sans-serif;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        .metric-card h3 {
+            font-family: Vollkorn, serif;
+        }
+        .chart-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 49%;
+            margin-right: 2%;
+            font-family: Inter, sans-serif;
+        }
+        .chart-container h3 {
+            font-family: Vollkorn, serif;
+        }
+        .chart-row {
+            display: flex;
+        }
+        .watchlist {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: Inter, sans-serif;
+        }
+        .watchlist h3 {
+            font-family: Vollkorn, serif;
+        }
+        .watchlist-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-family: Inter, sans-serif;
+        }
+        .btn {
+            background-color: white;
+            border: 1px solid #ccc;
+            color: #4CAF50;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: Inter, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Dividend Scorer</h2>
+            <button class="btn"><span class="icon">&#128202;</span>Reports</button>
+            <button class="btn"><span class="icon">&#128187;</span>Financials</button>
+            <button class="btn"><span class="icon">&#128100;</span>People</button>
+            <button class="btn"><span class="icon">&#128340;</span>Activities</button>
+            <button class="btn"><span class="icon">&#128214;</span>Get Started</button>
+            <button class="btn"><span class="icon">&#9881;</span>Settings</button>
+        </div>
+        <div class="main-content">
+            <div class="header">
+                <h1>Hello Sam,</h1>
+                <input type="text" class="search-bar" placeholder="Search for stocks and more">
+                <div>
+                    <button class="btn">🔔</button>
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/placeholder-user-NWNjNzI3NDYtYzIyYy00.jpg" alt="User" width="50">
+                </div>
+            </div>
+            
+            <h2>My Portfolio</h2>
+            
+            <div class="stock-cards" id="stockCards"></div>
+            
+            <div class="metric-cards">
+                <div class="metric-card">
+                    <h3>Dividend Score</h3>
+                    <h2>72/80</h2>
+                </div>
+                <div class="metric-card">
+                    <h3>Dividend Yield</h3>
+                    <h2>3.5%</h2>
+                </div>
+                <div class="metric-card">
+                    <h3>Dividend Longevity</h3>
+                    <h2>2.4%</h2>
+                </div>
+            </div>
+            
+            <div class="metric-cards">
+                <div class="metric-card">
+                    <h3>Free Cashflow Generation Score</h3>
+                    <h2>95</h2>
+                </div>
+                <div class="metric-card">
+                    <h3>Total Investment</h3>
+                    <h2>$85,431.5</h2>
+                </div>
+                <div class="metric-card">
+                    <h3>Market Cap</h3>
+                    <h2>2.89T</h2>
+                </div>
+            </div>
+            
+            <div class="chart-row">
+                <div class="chart-container">
+                    <h3>Portfolio Analytics</h3>
+                    <select id="timeRange">
+                        <option value="1D">1D</option>
+                        <option value="5D">5D</option>
+                        <option value="1M">1M</option>
+                        <option value="6M">6M</option>
+                        <option value="1Y">1Y</option>
+                        <option value="5Y">5Y</option>
+                        <option value="Max">Max</option>
+                    </select>
+                    <canvas id="portfolioChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Trading Volume</h3>
+                    <canvas id="volumeChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="watchlist">
+                <h3>Watchlist</h3>
+                <div id="watchlistItems"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Stock data
+        const stocks = [
+            {name: "Apple", price: 310.40, shares: 100, return: -1.10},
+            {name: "Meta", price: 140.45, shares: 50, return: -0.10},
+            {name: "Microsoft", price: 240.98, shares: 75, return: 0.85},
+            {name: "Google", price: 99.12, shares: 30, return: -0.04}
+        ];
+
+        // Render stock cards
+        const stockCardsContainer = document.getElementById('stockCards');
+        stocks.forEach(stock => {
+            const card = document.createElement('div');
+            card.className = 'stock-card';
+            card.innerHTML = `
+                <h3>${stock.name}</h3>
+                <p>Total Shares</p>
+                <h2>$${stock.price.toFixed(2)}</h2>
+                <p style="color: ${stock.return > 0 ? 'green' : 'red'};">${stock.return.toFixed(2)}%</p>
+            `;
+            stockCardsContainer.appendChild(card);
+        });
+
+        // Portfolio chart
+        const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
+        const portfolioChart = new Chart(portfolioCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Portfolio Value',
+                    data: [12000, 19000, 15000, 17000, 16000, 23000],
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Volume chart
+        const volumeCtx = document.getElementById('volumeChart').getContext('2d');
+        const volumeChart = new Chart(volumeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+                datasets: [{
+                    label: 'Trading Volume',
+                    data: [1000, 1200, 1500, 1300, 1100, 1400, 1600, 1800, 2000, 2200, 2400, 2600],
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Watchlist
+        const watchlist = [
+            {name: "Amazon.com, Inc.", symbol: "AMZN", price: 102.24, change: 3.02},
+            {name: "Coca-Cola Co", symbol: "KO", price: 60.49, change: -0.32},
+            {name: "Bayerische Motoren Werke AG", symbol: "BMW", price: 92.94, change: 0.59},
+            {name: "Microsoft Corp", symbol: "MSFT", price: 248.16, change: 0.16},
+            {name: "United Parcel Service, Inc.", symbol: "UPS", price: 182.09, change: 2.39},
+        ];
+
+        const watchlistContainer = document.getElementById('watchlistItems');
+        watchlist.forEach(stock => {
+            const item = document.createElement('div');
+            item.className = 'watchlist-item';
+            item.innerHTML = `
+                <div>
+                    <strong>${stock.name}</strong> (${stock.symbol})
+                </div>
+                <div>
+                    <div>$${stock.price.toFixed(2)}</div>
+                    <div style="color: ${stock.change > 0 ? 'green' : 'red'};">${stock.change > 0 ? '+' : ''}${stock.change.toFixed(2)}</div>
+                </div>
+            `;
+            watchlistContainer.appendChild(item);
+        });
+
+        // Time range selector
+        document.getElementById('timeRange').addEventListener('change', function(e) {
+            // In a real application, this would fetch new data and update the chart
+            console.log('Selected time range:', e.target.value);
+        });
+    </script>
+</body>
+</html>
+
         <div class="content-wrapper">
             <div class="form-container">
                 <form id="dividend-form">
