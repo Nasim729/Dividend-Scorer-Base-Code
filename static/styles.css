@@ -1,0 +1,217 @@
+body {
+    font-family: Inter, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #E5F9F2;
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally within the container */
+    max-width: 960px; /* Set a maximum width for the container */
+    width: 100%; /* Make the container take full available width */
+    padding: 20px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    font-family: Inter, sans-serif;
+    width: 100%; /* Make main content take full container width */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: Inter, sans-serif;
+    width: 100%; /* Make header take full container width */
+}
+
+.header h1 {
+    font-family: Vollkorn, serif;
+}
+
+.search-bar {
+    padding: 5px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Inter, sans-serif;
+}
+
+.stock-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-family: Inter, sans-serif;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+}
+
+.stock-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 22%;
+    font-family: Inter, sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* Add margin between cards */
+}
+
+.stock-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.metric-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-family: Inter, sans-serif;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+}
+
+.metric-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 30%;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* Add margin between cards */
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.metric-card h3 {
+    font-family: Vollkorn, serif;
+}
+
+.chart-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%; /* Make chart container take full container width */
+    font-family: Inter, sans-serif;
+}
+
+.chart-container h3 {
+    font-family: Vollkorn, serif;
+}
+
+.chart-row {
+    display: flex;
+    flex-wrap: wrap; /* Allow charts to wrap on smaller screens */
+}
+
+.watchlist {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: Inter, sans-serif;
+    width: 100%; /* Make watchlist take full container width */
+}
+
+.watchlist h3 {
+    font-family: Vollkorn, serif;
+}
+
+.watchlist-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-family: Inter, sans-serif;
+}
+
+.btn {
+    background-color: white;
+    border: 1px solid #ccc;
+    color: #4CAF50;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: Inter, sans-serif;
+}
+
+
+/* Styles for Auth Overlays */
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure overlay is on top */
+}
+
+.auth-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.auth-container button[type="submit"] {
+    background-color: #4CAF50; /* Green background for buttons */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .metric-card, .stock-card {
+        width: 48%; /* Two cards per row on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .metric-card, .stock-card {
+        width: 100%; /* One card per row on small screens */
+    }
+}

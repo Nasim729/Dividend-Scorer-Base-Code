@@ -1,8 +1,11 @@
-from flask import Flask, request, jsonify
+import requests
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+
+# Enable CORS for all origins
+CORS(app, resources={r"/*": {"origins": "*"}}) 
 
 def calculate_score(payout_ratio, debt_levels, recession_perform, dividend_longevity, industry_cyclicality, free_cash_flow, recent_sales_and_earnings_growth):
     # Payout Ratio Score
@@ -79,6 +82,24 @@ def calculate():
         return jsonify({'error': f'Invalid input. Please check your values. Error: {str(e)}'}), 400
     except Exception as e:
         return jsonify({'error': f'An unexpected error occurred: {str(e)}'}), 500
+
+@app.route('/')
+def index():
+    return render_template('index.html') # Render index.html
+
+@app.route('/get_stock_data', methods=['GET', 'POST']) 
+def get_stock_data():
+    ticker = request.form.get('ticker')
+    api_key = 'FALC2LA5UB17HCK5'  # Replace with your actual Alpha Vantage API key
+    url = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker}&apikey={api_key}'
+    response = requests.get(url)
+    data = response.json()
+
+    # Return only the necessary fields
+    return jsonify({
+        'PayoutRatio': data.get('PayoutRatio', 'N/A'),
+        'DividendYield': data.get('DividendYield', 'N/A')
+    })
 
 if __name__ == '__main__':
     app.run(debug=True)
