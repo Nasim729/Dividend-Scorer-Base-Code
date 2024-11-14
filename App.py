@@ -90,16 +90,92 @@ def index():
 @app.route('/get_stock_data', methods=['GET', 'POST']) 
 def get_stock_data():
     ticker = request.form.get('ticker')
-    api_key = 'FALC2LA5UB17HCK5'  # Replace with your actual Alpha Vantage API key
+    api_key = 'VM9B620L0YMUD2RL'  # Replace with your actual Alpha Vantage API key
     url = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker}&apikey={api_key}'
     response = requests.get(url)
     data = response.json()
 
-    # Return only the necessary fields
+    # Return only the necessary field
     return jsonify({
-        'PayoutRatio': data.get('PayoutRatio', 'N/A'),
         'DividendYield': data.get('DividendYield', 'N/A')
     })
+
+@app.route('/get_dividend_score', methods=['GET', 'POST'])
+def get_dividend_score():
+    ticker = request.form.get('ticker')
+    api_key = 'VM9B620L0YMUD2RL'  # Replace with your actual Alpha Vantage API key
+    url_cf = f'https://www.alphavantage.co/query?function=CASH_FLOW&symbol={ticker}&apikey={api_key}'
+    url_bs = f'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol={ticker}&apikey={api_key}'
+    response_cf = requests.get(url_cf)
+    response_bs = requests.get(url_bs)
+    data_cf = response_cf.json()
+    data_bs = response_bs.json()
+
+    try:
+        # Extract latest annual dividend payout and net income
+        latest_cashflow = data_cf['annualReports'][0]
+        dividend_payout = float(latest_cashflow['dividendPayout'])
+        net_income = float(latest_cashflow['netIncome'])
+
+        # Calculate payout ratio
+        payout_ratio = dividend_payout / net_income
+
+        # Calculate payout ratio score
+        payout_score = payout_ratio / 100
+        if payout_score < 0:
+            payout_score = 0
+        elif payout_score >= 1:
+            payout_score = (-0.1 * payout_score) + 20
+        else:
+            payout_score = (-38 * payout_score) + 100
+
+        # Extract latest annual long-term debt and total shareholder equity
+        latest_balancesheet = data_bs['annualReports'][0]
+        long_term_debt = float(latest_balancesheet['longTermDebt'])
+        total_shareholder_equity = float(latest_balancesheet['totalShareholderEquity'])
+
+        # Calculate debt ratio
+        debt_ratio = long_term_debt / total_shareholder_equity
+
+        # Calculate debt score
+        debt_score = (debt_ratio * -26) + 100
+        if debt_score < 0:
+            debt_score = 0
+        elif debt_score > 100:
+            debt_score = 100
+
+        # Calculate weighted dividend score
+        weighted_dividend_score = (payout_score * 0.5) + (debt_score * 0.5)
+
+        # Fetch data for LFCF calculation
+        operating_cashflow = float(latest_cashflow.get('operatingCashflow', 0))
+        capital_expenditures = float(latest_cashflow.get('capitalExpenditures', 0))
+        short_term_debt_repayments = float(latest_cashflow.get('proceedsFromRepaymentsOfShortTermDebt', 0) or 0)
+        long_term_debt_issuance = float(latest_cashflow.get('proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet', 0))
+
+        # Calculate Net Debt Repayments
+        net_debt_repayments = float(short_term_debt_repayments or 0) + float(long_term_debt_issuance)
+
+        # Calculate LFCF
+        lfcf = operating_cashflow - capital_expenditures - net_debt_repayments
+
+        # Calculate LFCF Ratio
+        lfcf_ratio = dividend_payout / lfcf if lfcf != 0 else 'N/A'
+
+        return jsonify({'dividend_score': weighted_dividend_score, 
+                        'payout_ratio': payout_ratio, 
+                        'debt_ratio': debt_ratio, 
+                        'operatingCashflow': operating_cashflow,
+                        'capitalExpenditures': capital_expenditures,
+                        'shortTermDebtRepayments': short_term_debt_repayments,
+                        'longTermDebtIssuance': long_term_debt_issuance,
+                        'netDebtRepayments': net_debt_repayments,
+                        'lfcf': lfcf,
+                        'lfcf_ratio': lfcf_ratio
+                        })
+
+    except (KeyError, ValueError, ZeroDivisionError) as e:
+        return jsonify({'error': f'Error calculating dividend score: {str(e)}'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
