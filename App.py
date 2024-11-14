@@ -144,9 +144,6 @@ def get_dividend_score():
         elif debt_score > 100:
             debt_score = 100
 
-        # Calculate weighted dividend score
-        weighted_dividend_score = (payout_score * 0.5) + (debt_score * 0.5)
-
         # Fetch data for LFCF calculation
         operating_cashflow = float(latest_cashflow.get('operatingCashflow', 0))
         capital_expenditures = float(latest_cashflow.get('capitalExpenditures', 0))
@@ -160,7 +157,15 @@ def get_dividend_score():
         lfcf = operating_cashflow - capital_expenditures - net_debt_repayments
 
         # Calculate LFCF Ratio
-        lfcf_ratio = dividend_payout / lfcf if lfcf != 0 else 'N/A'
+        lfcf_ratio = dividend_payout / lfcf if lfcf != 0 else 0 # Set to 0 if lfcf is 0
+
+        # Calculate Free Cash Flow Score
+        free_cashflow_score = -50 * lfcf_ratio + 100
+        if free_cashflow_score < 0:
+            free_cashflow_score = 0
+
+        # Calculate weighted dividend score (1/3 weight for each metric)
+        weighted_dividend_score = (payout_score / 3) + (debt_score / 3) + (free_cashflow_score / 3)
 
         return jsonify({'dividend_score': weighted_dividend_score, 
                         'payout_ratio': payout_ratio, 

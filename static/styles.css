@@ -102,17 +102,65 @@ body {
     padding: 20px;
     margin-bottom: 20px;
     width: 100%; /* Make chart container take full container width */
-    font-family: Inter, sans-serif;
+    font-family: 'Vollkorn', serif; /* Use Vollkorn for the container */
 }
 
 .chart-container h3 {
-    font-family: Vollkorn, serif;
+    font-family: 'Vollkorn', serif;
 }
 
 .chart-row {
     display: flex;
     flex-wrap: wrap; /* Allow charts to wrap on smaller screens */
 }
+
+/* Safety Chart Styling */
+.safety-chart {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Vollkorn', serif; /* Use Vollkorn for the table */
+    margin-top: 20px;
+}
+
+.safety-chart th,
+.safety-chart td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.safety-chart th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Highlight rows based on safety level */
+.extremely-safe {
+    background-color: #c8e6c9; /* Light green */
+}
+
+.safe {
+    background-color: #d9ead3; /* Light green */
+}
+
+.unsafe {
+    background-color: #f8e71c; /* Light yellow */
+}
+
+.extremely-unsafe {
+    background-color: #ffcdd2; /* Light red */
+}
+
+/* Style for score column */
+.safety-chart td:nth-child(2) {
+    text-align: center;
+}
+
+/* Add some visual separation */
+.safety-chart tr:last-child td {
+    border-bottom: none;
+}
+
 
 .watchlist {
     background-color: white;
