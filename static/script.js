@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dividendScoreValue = document.getElementById('dividend-score-value');
     const debtRatioValue = document.getElementById('free-cashflow-generation-score-value');
     const lfcfRatioValue = document.getElementById('total-investment-value'); // Get the LFCF ratio element
+    const marketCapValue = document.getElementById('market-cap-value');
 
     // Debounce function to limit API calls
     function debounce(func, wait) {
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dividendScoreValue.textContent = 'N/A';
             debtRatioValue.textContent = 'N/A'; 
             lfcfRatioValue.textContent = 'N/A'; // Reset LFCF ratio
+            marketCapValue.textContent = 'N/A';
         }
     }, 300)); // Delay API calls by 300ms after typing stops
 
@@ -56,10 +58,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             dividendYieldValue.textContent = data['DividendYield'];
+            marketCapValue.textContent = data['MarketCapitalization'];
 
         } catch (error) {
             console.error('Error:', error);
             dividendYieldValue.textContent = 'Error fetching data';
+            marketCapValue.textContent = 'Error fetching data';
         }
     }
 
