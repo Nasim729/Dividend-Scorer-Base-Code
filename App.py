@@ -95,9 +95,10 @@ def get_stock_data():
     response = requests.get(url)
     data = response.json()
 
-    # Return only the necessary field
+    # Return the necessary fields
     return jsonify({
-        'DividendYield': data.get('DividendYield', 'N/A')
+        'DividendYield': data.get('DividendYield', 'N/A'),
+        'MarketCapitalization': data.get('MarketCapitalization', 'N/A')
     })
 
 @app.route('/get_dividend_score', methods=['GET', 'POST'])
