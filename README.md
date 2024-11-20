@@ -15,3 +15,9 @@ Update | 11/14/2024 | 12:02pm
 
 Update | 11/19/2024 | 18:41pm
 - Formatted numbers displayed on the dashboard for everything except LCFC and Debt Ratio.
+
+Update | 11/20/2024 | 16:42pm
+- Replaced LCFC with EPS
+- Replaced Debt Ratio Display with Company Name
+- Changed chart look and size
+- Made Logout button look better
