@@ -21,3 +21,4 @@ Update | 11/20/2024 | 16:42pm
 - Replaced Debt Ratio Display with Company Name
 - Changed chart look and size
 - Made Logout button look better
+- Added the Username to display on Dashboard
