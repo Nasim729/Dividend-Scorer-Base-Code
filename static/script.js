@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const payoutRatioValue = document.getElementById('payout-ratio-value');
     const dividendYieldValue = document.getElementById('dividend-yield-value');
     const dividendScoreValue = document.getElementById('dividend-score-value');
-    const debtRatioValue = document.getElementById('free-cashflow-generation-score-value'); 
-    const lfcfRatioValue = document.getElementById('total-investment-value'); 
+    const companyNameValue = document.getElementById('free-cashflow-generation-score-value'); 
+    const epsValue = document.getElementById('total-investment-value'); // Use EPS element
     const marketCapValue = document.getElementById('market-cap-value');
 
     // Debounce function to limit API calls
@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
             payoutRatioValue.textContent = 'N/A';
             dividendYieldValue.textContent = 'N/A';
             dividendScoreValue.textContent = 'N/A';
-            debtRatioValue.textContent = 'N/A'; 
-            lfcfRatioValue.textContent = 'N/A'; 
+            companyNameValue.textContent = 'N/A'; 
+            epsValue.textContent = 'N/A'; // Reset EPS value
             marketCapValue.textContent = 'N/A';
         }
     }, 300)); // Delay API calls by 300ms after typing stops
@@ -59,11 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
             dividendYieldValue.textContent = `${(parseFloat(data['DividendYield']) * 100).toFixed(2)}%`; 
             marketCapValue.textContent = formatMarketCap(data['MarketCapitalization']); // Format market cap
+            companyNameValue.textContent = data['Name']; // Display stock name
+            epsValue.textContent = data['EPS']; // Display EPS
 
         } catch (error) {
             console.error('Error:', error);
             dividendYieldValue.textContent = 'Error fetching data';
             marketCapValue.textContent = 'Error fetching data';
+            companyNameValue.textContent = 'Error fetching data'; // Set error for stock name
+            epsValue.textContent = 'Error fetching data'; // Set error for EPS
         }
     }
 
@@ -91,15 +95,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Round dividend score to a whole number
             dividendScoreValue.textContent = Math.round(data['dividend_score']); 
             payoutRatioValue.textContent = `${(data['payout_ratio'] * 100).toFixed(1)}%`; // Format payout ratio as percentage
-            debtRatioValue.textContent = data['debt_ratio']; 
-            lfcfRatioValue.textContent = data['lfcf_ratio']; 
+            // debtRatioValue.textContent = data['debt_ratio']; // This is now handled in fetchStockData
+            // lfcfRatioValue.textContent = data['lfcf_ratio']; // This is now handled in fetchStockData
 
         } catch (error) {
             console.error('Error:', error);
             dividendScoreValue.textContent = 'Error fetching data';
             payoutRatioValue.textContent = 'Error fetching data'; 
-            debtRatioValue.textContent = 'Error fetching data'; 
-            lfcfRatioValue.textContent = 'Error fetching data'; 
+            // debtRatioValue.textContent = 'Error fetching data'; // This is now handled in fetchStockData
+            // lfcfRatioValue.textContent = 'Error fetching data'; 
         }
     }
 
