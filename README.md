@@ -13,4 +13,5 @@ Update  |  11/6/2024  |  3:53pm
 Update | 11/14/2024 | 12:02pm
 - Added the Metrics for Levered free Cash flow (LCFC), Payout Ratio, Debt Levels. Only Payout Ratio and Debt Levels are calculated in the dividend score 50/50. 
 
-Update | 
+Update | 11/19/2024 | 18:41pm
+- Formatted numbers displayed on the dashboard for everything except LCFC and Debt Ratio.
