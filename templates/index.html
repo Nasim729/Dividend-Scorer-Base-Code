@@ -69,8 +69,7 @@
             <div class="main-content">
             <!-- Greeting header with a search bar for stock ticker -->
                 <div class="header">
-                    <h1>Hello Sam,</h1>
-                <input type="text" class="search-bar" id="stock-ticker-input" placeholder="Enter Stock Ticker">
+                    <h1 id="user-greeting">Hello Sam,</h1> <input type="text" class="search-bar" id="stock-ticker-input" placeholder="Enter Stock Ticker">
             </div>
 
             <!-- Metric Cards Section -->
@@ -91,11 +90,11 @@
 
                 <div class="metric-cards">
                     <div class="metric-card">
-                        <h3>Debt Ratio</h3> 
+                        <h3>Company Name</h3> 
                         <h2 id="free-cashflow-generation-score-value">N/A</h2> 
                     </div>
                     <div class="metric-card">
-                        <h3>LFCF Ratio</h3> 
+                        <h3>EPS</h3> 
                         <h2 id="total-investment-value">N/A</h2> 
                     </div>
                     <div class="metric-card">
@@ -140,5 +139,14 @@
     <!-- JavaScript files for handling functionality and interactivity -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='auth.js') }}"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userGreeting = document.getElementById('user-greeting');
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                userGreeting.textContent = `Hello ${currentUser},`;
+            }
+        });
+    </script>
 </body>
 </html>
