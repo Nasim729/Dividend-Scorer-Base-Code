@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const payoutRatioValue = document.getElementById('payout-ratio-value');
     const dividendYieldValue = document.getElementById('dividend-yield-value');
     const dividendScoreValue = document.getElementById('dividend-score-value');
-    const debtRatioValue = document.getElementById('free-cashflow-generation-score-value');
-    const lfcfRatioValue = document.getElementById('total-investment-value'); // Get the LFCF ratio element
+    const debtRatioValue = document.getElementById('free-cashflow-generation-score-value'); 
+    const lfcfRatioValue = document.getElementById('total-investment-value'); 
     const marketCapValue = document.getElementById('market-cap-value');
 
     // Debounce function to limit API calls
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dividendYieldValue.textContent = 'N/A';
             dividendScoreValue.textContent = 'N/A';
             debtRatioValue.textContent = 'N/A'; 
-            lfcfRatioValue.textContent = 'N/A'; // Reset LFCF ratio
+            lfcfRatioValue.textContent = 'N/A'; 
             marketCapValue.textContent = 'N/A';
         }
     }, 300)); // Delay API calls by 300ms after typing stops
@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Invalid or missing data from API. Check your API key and ticker symbol.');
             }
 
-            dividendYieldValue.textContent = data['DividendYield'];
-            marketCapValue.textContent = data['MarketCapitalization'];
+            dividendYieldValue.textContent = `${(parseFloat(data['DividendYield']) * 100).toFixed(2)}%`; 
+            marketCapValue.textContent = formatMarketCap(data['MarketCapitalization']); // Format market cap
 
         } catch (error) {
             console.error('Error:', error);
@@ -88,17 +88,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(data.error);
             }
 
-            dividendScoreValue.textContent = data['dividend_score'];
-            payoutRatioValue.textContent = data['payout_ratio']; 
-            debtRatioValue.textContent = data['debt_ratio'];
-            lfcfRatioValue.textContent = data['lfcf_ratio']; // Update LFCF ratio
+            // Round dividend score to a whole number
+            dividendScoreValue.textContent = Math.round(data['dividend_score']); 
+            payoutRatioValue.textContent = `${(data['payout_ratio'] * 100).toFixed(1)}%`; // Format payout ratio as percentage
+            debtRatioValue.textContent = data['debt_ratio']; 
+            lfcfRatioValue.textContent = data['lfcf_ratio']; 
 
         } catch (error) {
             console.error('Error:', error);
             dividendScoreValue.textContent = 'Error fetching data';
             payoutRatioValue.textContent = 'Error fetching data'; 
             debtRatioValue.textContent = 'Error fetching data'; 
-            lfcfRatioValue.textContent = 'Error fetching data'; // Set error for LFCF ratio
+            lfcfRatioValue.textContent = 'Error fetching data'; 
         }
+    }
+
+    // Function to format market cap
+    function formatMarketCap(marketCap) {
+        let value = parseFloat(marketCap);
+        let suffix = '';
+
+        if (value >= 1000000000000) {
+            value /= 1000000000000;
+            suffix = 'T';
+        } else if (value >= 1000000000) {
+            value /= 1000000000;
+            suffix = 'B';
+        } else if (value >= 1000000) {
+            value /= 1000000;
+            suffix = 'M';
+        }
+
+        return `$${value.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 2})}${suffix}`;
     }
 });

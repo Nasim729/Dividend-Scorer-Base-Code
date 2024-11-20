@@ -60,48 +60,48 @@
     </div>
 
     <!-- Main Content Section -->
-    <div id="main-content" class="container">
+     <div id="main-content" class="container">
         <div class="header">
             <h1>Dividend Scorer</h1>
             <!-- Logout button -->
             <button id="logout-btn" class="logout-btn">Logout</button>
         </div>
-        <div class="main-content">
+            <div class="main-content">
             <!-- Greeting header with a search bar for stock ticker -->
-            <div class="header">
-                <h1>Hello Sam,</h1>
+                <div class="header">
+                    <h1>Hello Sam,</h1>
                 <input type="text" class="search-bar" id="stock-ticker-input" placeholder="Enter Stock Ticker">
             </div>
 
             <!-- Metric Cards Section -->
-            <div class="metric-cards">
-                <div class="metric-card">
-                    <h3>Dividend Score</h3>
-                    <h2 id="dividend-score-value">N/A</h2> 
+                <div class="metric-cards">
+                    <div class="metric-card">
+                        <h3>Dividend Score</h3>
+                        <h2 id="dividend-score-value">N/A</h2> 
+                    </div>
+                    <div class="metric-card" id="payout-ratio-card">
+                        <h3>Payout Ratio</h3>
+                        <h2 id="payout-ratio-value">N/A</h2>
+                    </div>
+                    <div class="metric-card" id="dividend-yield-card">
+                        <h3>Dividend Yield</h3>
+                        <h2 id="dividend-yield-value">N/A</h2>
+                    </div>
                 </div>
-                <div class="metric-card" id="payout-ratio-card">
-                    <h3>Payout Ratio</h3>
-                    <h2 id="payout-ratio-value">N/A</h2>
-                </div>
-                <div class="metric-card" id="dividend-yield-card">
-                    <h3>Dividend Yield</h3>
-                    <h2 id="dividend-yield-value">N/A</h2>
-                </div>
-            </div>
 
-            <div class="metric-cards">
-                <div class="metric-card">
-                    <h3>Debt Ratio</h3> 
-                    <h2 id="free-cashflow-generation-score-value">N/A</h2> 
-                </div>
-                <div class="metric-card">
-                    <h3>LFCF Ratio</h3> 
-                    <h2 id="total-investment-value">N/A</h2> 
-                </div>
-                <div class="metric-card">
-                    <h3>Market Cap</h3>
-                    <h2 id="market-cap-value">N/A</h2>
-                </div>
+                <div class="metric-cards">
+                    <div class="metric-card">
+                        <h3>Debt Ratio</h3> 
+                        <h2 id="free-cashflow-generation-score-value">N/A</h2> 
+                    </div>
+                    <div class="metric-card">
+                        <h3>LFCF Ratio</h3> 
+                        <h2 id="total-investment-value">N/A</h2> 
+                    </div>
+                    <div class="metric-card">
+                        <h3>Market Cap</h3>
+                        <h2 id="market-cap-value">N/A</h2> 
+                    </div>
 
                 <!-- Safety Chart Section -->
                 <div class="chart-container">
@@ -134,63 +134,8 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Dividend Scorer Form Section -->
-        <div class="content-wrapper">
-            <div class="form-container">
-                <form id="dividend-form">
-                    <!-- Input fields for various financial metrics -->
-                    <div class="form-group">
-                        <label for="stock-ticker">Stock Ticker:</label>
-                        <input type="text" id="stock-ticker" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="payout-ratio">Payout Ratio:</label>
-                        <input type="number" id="payout-ratio" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="debt-levels">Debt Levels:</label>
-                        <input type="number" id="debt-levels" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="recession-perform">Recession Performance:</label>
-                        <select id="recession-perform" required>
-                            <option value="Good">Good</option>
-                            <option value="Bad">Bad</option>
-                            <option value="N/A">N/A</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="dividend-longevity">Dividend Longevity (1-20 years):</label>
-                        <input type="number" id="dividend-longevity" min="1" max="20" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="industry-cyclicality">Industry Cyclicality:</label>
-                        <select id="industry-cyclicality" required>
-                            <option value="Not Cyclical">Not Cyclical</option>
-                            <option value="Cyclical">Cyclical</option>
-                            <option value="Very Cyclical">Very Cyclical</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="free-cash-flow">Free Cash Flow:</label>
-                        <input type="number" id="free-cash-flow" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="recent-growth">Recent Sales and Earnings Growth:</label>
-                        <input type="number" id="recent-growth" required>
-                    </div>
-                    <!-- Submit button to calculate the score -->
-                    <button type="submit">Calculate Score</button>
-                </form>
-                <!-- Divs for displaying result and category after calculation -->
-                <div id="result" class="result"></div>
-                <div id="category" class="category"></div>
-            </div>
-        </div>
     </div>
+        </div>
     
     <!-- JavaScript files for handling functionality and interactivity -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
