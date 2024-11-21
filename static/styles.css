@@ -32,7 +32,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     font-family: Inter, sans-serif;
     width: 100%; /* Make header take full container width */
 }
@@ -43,11 +43,13 @@ body {
 
 /* Search Bar Styling */
 .search-bar {
-    padding: 5px;
+    padding: 10px;
     width: 200px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-family: Inter, sans-serif;
+    background-color: #f4fcf6;
+    font-size: 16px;
 }
 
 /* Stock Card Layout */
@@ -150,11 +152,11 @@ body {
 
 /* Highlight rows based on safety level */
 .extremely-safe {
-    background-color: #c8e6c9; /* Light green */
+    background-color: #d2ffd8; /* Light mint green */
 }
 
 .safe {
-    background-color: #d9ead3; /* Light green */
+    background-color: #99ccff; /* Light sky blue */
 }
 
 .unsafe {
@@ -319,8 +321,8 @@ a:hover {
 
 /* Logout Button Styling */
 .logout-btn {
-    background-color: #e8fce9; /* Light green background */
-    color: #38a169; /* Darker green text */
+    background-color: #38a169; /* Primary green background */
+    color: white; /* White text */
     border: 1px solid black; /* Add black border */
     padding: 10px 20px;
     border-radius: 5px;
@@ -331,6 +333,6 @@ a:hover {
 }
 
 .logout-btn:hover {
-    background-color: #d1f0d8; /* Slightly darker green on hover */
+    background-color: #2f855a; /* Dark green on hover */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
 }
