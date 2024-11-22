@@ -1,6 +1,11 @@
 import requests
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -40,7 +45,9 @@ def index():
 def get_stock_data():
     # Retrieve the stock ticker from the form data
     ticker = request.form.get('ticker')
-    api_key = 'VM9B620L0YMUD2RL'  # Replace with your actual Alpha Vantage API key
+    api_key = os.getenv ('API_KEY') # Load the API key securely from the environment
+    if not api_key:
+        return jsonify({'error':'API key is missing'}), 500
     # Create API URL to get stock data
     url = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker}&apikey={api_key}'
     response = requests.get(url)
@@ -58,7 +65,9 @@ def get_stock_data():
 def get_dividend_score():
     # Retrieve the stock ticker from the form data
     ticker = request.form.get('ticker')
-    api_key = 'VM9B620L0YMUD2RL'  # Replace with your actual Alpha Vantage API key
+    api_key = os.getenv ('API_KEY') 
+    if not api_key:
+        return jsonify({'error': 'API key is missing'}), 500 # Load the API key securely from the environment
     # URLs to get cash flow and balance sheet data
     url_cf = f'https://www.alphavantage.co/query?function=CASH_FLOW&symbol={ticker}&apikey={api_key}'
     url_bs = f'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol={ticker}&apikey={api_key}'
