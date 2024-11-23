@@ -25,6 +25,7 @@ Update | 11/20/2024 | 16:42pm
 
 Update | 11/22/2014 | 21:41pm
 - Hide the API key
-- When pull the updated code from GitHub, change the name .env_sample file to .env 
+- When pull the updated code from GitHub, change the name .env_sample file to .env
 - In the .env file replace the YOUR_API_KEY_HERE with the actual API key with NO quotation marks or anything
-- Do not push the .env file into GitHub, save it locally 
+- Do not push the .env file into GitHub, save it locally
+ 
