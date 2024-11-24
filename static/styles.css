@@ -111,10 +111,10 @@ body {
 .chart-container {
     background-color: white;
     border-radius: 10px;
-    padding: 10px; /* Reduced padding */
+    padding: 20px;
     margin-bottom: 20px;
-    width: 50%; /* Reduced width */
-    font-family: 'Vollkorn', serif; /* Use Vollkorn for the container */
+    width: 100%;
+    box-sizing: border-box; /* Important: include padding in width calculation */
 }
 
 .chart-container h2 {
@@ -132,9 +132,10 @@ body {
 .safety-chart {
     width: 100%;
     border-collapse: collapse;
-    font-family: 'Vollkorn', serif; /* Use Vollkorn for the table */
-    font-size: 0.9em; /* Smaller font size */
-    margin-top: 10px; /* Reduced margin */
+    font-family: 'Vollkorn', serif;
+    font-size: 0.9em;
+    margin-top: 10px;
+    table-layout: fixed; /* Add this to ensure consistent column widths */
 }
 
 /* Safety Chart Headers and Cells */
@@ -335,4 +336,9 @@ a:hover {
 .logout-btn:hover {
     background-color: #2f855a; /* Dark green on hover */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on hover */
+}
+
+.cashflow-chart {
+    width: 100%;
+    box-sizing: border-box;
 }

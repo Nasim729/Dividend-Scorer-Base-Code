@@ -151,5 +151,47 @@ def get_dividend_score():
         # Handle errors in calculation or missing data
         return jsonify({'error': f'Error calculating dividend score: {str(e)}'}), 500
 
+@app.route('/api/cashflow/<symbol>')
+def get_cashflow_data(symbol):
+    api_key = os.getenv('API_KEY')
+    if not api_key:
+        return jsonify({'error': 'API key is missing'}), 500
+    url = f'https://www.alphavantage.co/query?function=CASH_FLOW&symbol={symbol}&apikey={api_key}'
+    response = requests.get(url)
+    data = response.json()
+
+    if 'annualReports' not in data:
+        return jsonify({'error': 'No data available'})
+
+    annual_reports = data['annualReports']
+
+    # Extract relevant data
+    cashflow_data = {
+        'labels': [],
+        'operatingCashflow': [],
+        'capitalExpenditures': [],
+        'freeCashflow': []
+    }
+
+    for report in annual_reports:
+        cashflow_data['labels'].append(report['fiscalDateEnding'])
+        cashflow_data['operatingCashflow'].append(float(report['operatingCashflow']) / 1e9)  # Convert to billions
+        cashflow_data['capitalExpenditures'].append(float(report['capitalExpenditures']) / 1e9)  # Convert to billions
+        cashflow_data['freeCashflow'].append(
+            float(report['operatingCashflow']) / 1e9 + float(report['capitalExpenditures']) / 1e9
+        )
+
+    # Reverse the data to show chronological order
+    for key in cashflow_data:
+        cashflow_data[key].reverse()
+
+    return jsonify(cashflow_data)
+
+def calculate_score(payout_ratio, debt_levels, recession_perform, dividend_longevity, industry_cyclicality, free_cash_flow, recent_growth):
+    # Placeholder for the actual dividend score calculation logic
+    # Replace this with your actual calculation
+    return (payout_ratio + debt_levels + dividend_longevity + free_cash_flow + recent_growth) / 5
+
+
 if __name__ == '__main__':
     app.run(debug=True)  # Run the application in debug mode

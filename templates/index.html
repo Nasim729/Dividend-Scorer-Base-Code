@@ -133,6 +133,13 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Cashflow Chart Section -->
+                <div class="chart-container">
+                    <div class="cashflow-chart">
+                        <h2>Yearly Cashflow Analysis</h2>
+                        <canvas id="cashflowChart"></canvas>
+                    </div>
+                </div>
     </div>
         </div>
     
@@ -147,6 +154,98 @@
                 userGreeting.textContent = `Hello ${currentUser},`;
             }
         });
+    </script>
+    <script>
+        let cashflowChart = null;
+
+        document.getElementById('stock-ticker-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const symbol = this.value.toUpperCase();
+                if (symbol) {
+                    fetchCashflowData(symbol);
+                    // Your existing fetch calls here...
+                }
+            }
+        });
+
+        async function fetchCashflowData(symbol) {
+            try {
+                const response = await fetch(`/api/cashflow/${symbol}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error('Error fetching cashflow data:', data.error);
+                    return;
+                }
+
+                createCashflowChart(data);
+            } catch (error) {
+                console.error('Error fetching cashflow data:', error);
+            }
+        }
+
+        function createCashflowChart(data) {
+            // Destroy existing chart if it exists
+            if (cashflowChart) {
+                cashflowChart.destroy();
+            }
+
+            const ctx = document.getElementById('cashflowChart').getContext('2d');
+            cashflowChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            label: 'Operating Cashflow',
+                            data: data.operatingCashflow,
+                            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Capital Expenditures',
+                            data: data.capitalExpenditures,
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Free Cashflow',
+                            data: data.freeCashflow,
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Billions USD'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Yearly Cashflow Analysis',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

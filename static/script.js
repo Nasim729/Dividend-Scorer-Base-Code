@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (ticker.length > 0) {
             fetchStockData(ticker);
             fetchDividendScore(ticker); 
+            fetchCashflowData(ticker); // Added call to fetch cashflow data
         } else {
             payoutRatioValue.textContent = 'N/A';
             dividendYieldValue.textContent = 'N/A';
