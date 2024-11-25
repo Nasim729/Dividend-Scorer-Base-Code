@@ -53,6 +53,12 @@ def get_stock_data():
     response = requests.get(url)
     data = response.json()
 
+    print(f"Raw API Response: {data}")
+
+    # Handle cases where the API returns an error
+    if 'Error Message' in data:
+        return jsonify({'error': data['Error Message']}), 500
+
     # Return relevant stock data (Dividend Yield and Market Capitalization)
     return jsonify({
         'DividendYield': data.get('DividendYield', 'N/A'),
@@ -77,6 +83,10 @@ def get_dividend_score():
     data_bs = response_bs.json()
 
     try:
+        # Check if cash flow data is available and 'annualReports' is not empty
+        if 'annualReports' not in data_cf or not data_cf['annualReports']:
+            return jsonify({'error': 'No cash flow data available for this ticker'}), 500
+
         # Extract latest annual dividend payout and net income from cash flow data
         latest_cashflow = data_cf['annualReports'][0]
         dividend_payout = float(latest_cashflow['dividendPayout'])
@@ -125,7 +135,7 @@ def get_dividend_score():
         lfcf = operating_cashflow - capital_expenditures - net_debt_repayments
 
         # Calculate LFCF Ratio and Free Cash Flow Score
-        lfcf_ratio = dividend_payout / lfcf if lfcf != 0 else 0 # Set to 0 if lfcf is 0
+        lfcf_ratio = dividend_payout / lfcf if lfcf != 0 else 'N/A'
         free_cashflow_score = -50 * lfcf_ratio + 100
         if free_cashflow_score < 0:
             free_cashflow_score = 0

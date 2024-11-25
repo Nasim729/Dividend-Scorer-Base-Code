@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
             epsValue.textContent = 'N/A'; // Reset EPS value
             marketCapValue.textContent = 'N/A';
         }
-    }, 300)); // Delay API calls by 300ms after typing stops
+    }, 600)); // Delay API calls by 300ms after typing stops
 
     async function fetchStockData(ticker) {
         try {
@@ -96,15 +96,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Round dividend score to a whole number
             dividendScoreValue.textContent = Math.round(data['dividend_score']); 
             payoutRatioValue.textContent = `${(data['payout_ratio'] * 100).toFixed(1)}%`; // Format payout ratio as percentage
-            // debtRatioValue.textContent = data['debt_ratio']; // This is now handled in fetchStockData
-            // lfcfRatioValue.textContent = data['lfcf_ratio']; // This is now handled in fetchStockData
 
         } catch (error) {
             console.error('Error:', error);
             dividendScoreValue.textContent = 'Error fetching data';
             payoutRatioValue.textContent = 'Error fetching data'; 
-            // debtRatioValue.textContent = 'Error fetching data'; // This is now handled in fetchStockData
-            // lfcfRatioValue.textContent = 'Error fetching data'; 
+
         }
     }
 
