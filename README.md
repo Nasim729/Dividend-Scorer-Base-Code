@@ -29,6 +29,6 @@ Update | 11/22/2014 | 21:41pm
 - In the .env file replace the YOUR_API_KEY_HERE with the actual API key with NO quotation marks or anything
 - Do not push the .env file into GitHub, save it locally
 
-Update | 11/24/2024 | 4.00pm
--Added a cashflow chart in the dashboard. The chart is interactive and you can hover over the data points to see the exact value.
+Update | 11/24/2024 | 4:00pm
+- Added a cashflow chart in the dashboard. The chart is interactive and you can hover over the data points to see the exact value.
  
