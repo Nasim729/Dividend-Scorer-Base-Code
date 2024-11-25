@@ -31,4 +31,6 @@ Update | 11/22/2014 | 21:41pm
 
 Update | 11/24/2024 | 4:00pm
 - Added a cashflow chart in the dashboard. The chart is interactive and you can hover over the data points to see the exact value.
- 
+
+Update | 11/25/2024 | 10:03am
+- Added some error handling
