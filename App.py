@@ -64,7 +64,8 @@ def get_stock_data():
         'DividendYield': data.get('DividendYield', 'N/A'),
         'MarketCapitalization': data.get('MarketCapitalization', 'N/A'),
         'Name': data.get('Name', 'N/A'), # Include stock name in response
-        'EPS': data.get('EPS', 'N/A') # Include EPS in response
+        'EPS': data.get('EPS', 'N/A'), # Include EPS in response
+        'ExDividendDate': data.get('ExDividendDate', 'N/A') # Include Ex-Dividend Date in response
     })
 
 @app.route('/get_dividend_score', methods=['GET', 'POST'])
