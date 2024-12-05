@@ -34,3 +34,7 @@ Update | 11/24/2024 | 4:00pm
 
 Update | 11/25/2024 | 10:03am
 - Added some error handling
+
+Update | 12/4/2024 | 11:11pm
+- Added dynamic coloring to the dividend Score display
+- Changed dashboard layout
