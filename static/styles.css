@@ -92,7 +92,7 @@ body {
     border-radius: 10px;
     padding: 10px;
     width: 30%;
-    text-align: center;
+    text-align: center; /* Center content within the card */
     font-family: Inter, sans-serif;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 20px; /* Add margin between cards */
@@ -101,6 +101,10 @@ body {
 .metric-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.metric-card * { /* Target all elements within the metric card */
+    text-align: center; /* Center align all content */
 }
 
 .metric-card h3 {
@@ -133,9 +137,9 @@ body {
     width: 100%;
     border-collapse: collapse;
     font-family: 'Vollkorn', serif;
-    font-size: 0.9em;
+    font-size: 0.8em; /* Reduced font size */
     margin-top: 10px;
-    table-layout: fixed; /* Add this to ensure consistent column widths */
+    table-layout: fixed; /* Ensure even column width distribution */
 }
 
 /* Safety Chart Headers and Cells */
@@ -144,6 +148,7 @@ body {
     padding: 8px; /* Reduced padding */
     text-align: left;
     border-bottom: 1px solid #ddd;
+    word-wrap: break-word; /* Allow long words to break and wrap */
 }
 
 .safety-chart th {
@@ -153,19 +158,23 @@ body {
 
 /* Highlight rows based on safety level */
 .extremely-safe {
-    background-color: #d2ffd8; /* Light mint green */
+    /* background-color: #d2ffd8;  Light mint green */
+    color: #228B22; /* Forest green text */
 }
 
 .safe {
-    background-color: #99ccff; /* Light sky blue */
+    /* background-color: #99ccff;  Light sky blue */
+    color: #000080; /* Navy blue text */
 }
 
 .unsafe {
-    background-color: #ffffcc; /* Quieter yellow */
+    /* background-color: #ffffcc;  Quieter yellow */
+    color: #DAA520; /* Goldenrod text */
 }
 
 .extremely-unsafe {
-    background-color: #ffcdd2; /* Light red */
+    /* background-color: #ffcdd2;  Light red */
+    color: #B22222; /* Firebrick text */
 }
 
 /* Center score column */
@@ -341,4 +350,24 @@ a:hover {
 .cashflow-chart {
     width: 100%;
     box-sizing: border-box;
+}
+
+/* Dividend Score Text Size */
+#dividend-score-value {
+    font-size: 48px; /* Double the default size */
+}
+
+/* Dividend Score Row Styling */
+.dividend-score-row {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+/* Safety Chart Container Styling */
+#safety-chart-container {
+    margin-left: 20px; /* Add margin to the left of the chart */
+    flex-shrink: 1; /* Allow the chart to shrink if needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
